@@ -4,3 +4,10 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse #
+proguard-project.txt
+project.properties
+.classpath
+.project
+.settings/
