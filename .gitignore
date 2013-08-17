@@ -16,4 +16,6 @@ project.properties
 *.swp
 
 # Android #
-bin/*
+bin/classes.dex
+bin/resources.ap_
+bin/jarlist.cache
