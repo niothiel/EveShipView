@@ -18,6 +18,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 	float[] mVMatrix = new float[16];
 	float[] mMVPMatrix = new float[16];
 	float[] mRotationMatrix = new float[16];
+	
+	float mAnglePitch = 0.0f;
+	float mAngleYaw = 0.0f;
 
 	public MyRenderer(Context context) 
 	{
@@ -43,7 +46,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.setIdentityM(mRotationMatrix, 0);
         long time = SystemClock.uptimeMillis() % 4000L;
         float angle = 0.090f * ((int) time);
-        Matrix.setRotateM(mRotationMatrix, 0, angle, 0, 0, -1.0f);
+        Matrix.rotateM(mRotationMatrix, 0, mAngleYaw, 0, 1.0f, 0);
+        Matrix.rotateM(mRotationMatrix, 0, mAnglePitch, -1.0f, 0, 0);
         
         // Combine the rotation matrix with the projection and camera view
         Matrix.multiplyMM(mMVPMatrix, 0, mVMatrix, 0, mRotationMatrix, 0);
@@ -61,6 +65,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         float ratio = (float) width / height;
         // this projection matrix is applied to object coordinates
     	// in the onDrawFrame() method
-    	Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1, 1000);
+    	Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1, 2000);
     }
 }
