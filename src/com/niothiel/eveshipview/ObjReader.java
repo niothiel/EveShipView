@@ -7,6 +7,8 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.opengl.GLUtils;
 import android.util.Log;
 
 public class ObjReader {
@@ -58,6 +60,19 @@ public class ObjReader {
 		for(int[] indexes : vertexIndicies) {
 			for(int index : indexes) {
 				buffer.put(vertices.get(index - 1));
+			}
+		}
+		
+		buffer.position(0);
+		return buffer;
+	}
+	
+	public FloatBuffer getTextureBuffer() {
+		FloatBuffer buffer = GLHelper.createFloatBuffer(textureIndicies.size() * 3 * 2);
+		
+		for(int[] indexes : textureIndicies) {
+			for(int index : indexes) {
+				buffer.put(textures.get(index - 1));
 			}
 		}
 		

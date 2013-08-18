@@ -30,22 +30,23 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
         GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
+        GLES20.glDepthFunc(GLES20.GL_LEQUAL);
+        //GLES20.glCullFace(GLES20.GL_BACK);
         
         mTriangle = new Triangle();
-        mObj = new ObjRender(mContext, "ab3_t1.obj");
+        mObj = new ObjRender(mContext, "ab3_t1.obj", "ab3_t1_diffuse.bmp");
     }
 
     public void onDrawFrame(GL10 unused) {
         // Redraw background color
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         
         // Set the camera position (View matrix)
         Matrix.setLookAtM(mVMatrix, 0, 0, 0, -1000, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         // Create a rotation transformation for the triangle
         Matrix.setIdentityM(mRotationMatrix, 0);
-        long time = SystemClock.uptimeMillis() % 4000L;
-        float angle = 0.090f * ((int) time);
         Matrix.rotateM(mRotationMatrix, 0, mAngleYaw, 0, 1.0f, 0);
         Matrix.rotateM(mRotationMatrix, 0, mAnglePitch, -1.0f, 0, 0);
         
